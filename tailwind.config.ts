@@ -51,7 +51,10 @@ export default {
         "gold-light": "hsl(var(--gold-light))",
         rose: "hsl(var(--rose))",
         star: "hsl(var(--star))",
+        "star-dim": "hsl(var(--star-dim))",
         glow: "hsl(var(--glow))",
+        "space-dark": "hsl(var(--space-dark))",
+        nebula: "hsl(var(--nebula))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -61,7 +64,7 @@ export default {
       fontFamily: {
         display: ["Great Vibes", "cursive"],
         elegant: ["Playfair Display", "serif"],
-        body: ["Lora", "serif"],
+        body: ["Cormorant Garamond", "serif"],
       },
       keyframes: {
         "accordion-down": {
