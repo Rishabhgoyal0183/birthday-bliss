@@ -344,8 +344,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Scroll indicator */}
-            <div className="mt-16">
+            <div className="mt-16 flex justify-center">
               <button 
                 onClick={() => scrollToSection('explore')}
                 className="text-muted-foreground hover:text-primary transition-colors duration-300 flex flex-col items-center gap-2 group"
