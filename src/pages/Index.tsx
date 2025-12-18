@@ -1,5 +1,6 @@
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
-import { Camera, MessageCircle, Gift, Music, Heart, Star, Cake, Sparkles } from 'lucide-react';
+import { Camera, MessageCircle, Gift, Music, Heart, Star, Cake, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const Index = () => {
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
@@ -9,6 +10,10 @@ const Index = () => {
   const [sparkles, setSparkles] = useState<{ id: number; x: number; y: number }[]>([]);
   const [scrollY, setScrollY] = useState(0);
   const [typingComplete, setTypingComplete] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Embla carousel
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 });
 
   // Generate confetti particles
   const confettiParticles = useMemo(() => {
@@ -108,6 +113,27 @@ const Index = () => {
   useEffect(() => {
     const timer = setTimeout(() => setTypingComplete(true), 4000);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Carousel slide tracking and autoplay
+  useEffect(() => {
+    if (!emblaApi) return;
+    
+    const onSelect = () => setCurrentSlide(emblaApi.selectedScrollSnap());
+    emblaApi.on('select', onSelect);
+    onSelect();
+    
+    // Autoplay every 4 seconds
+    const autoplay = setInterval(() => {
+      if (emblaApi.canScrollNext()) {
+        emblaApi.scrollNext();
+      }
+    }, 4000);
+    
+    return () => {
+      emblaApi.off('select', onSelect);
+      clearInterval(autoplay);
+    };
   }, []);
 
   // Create floating heart on click
@@ -494,34 +520,70 @@ const Index = () => {
               A collection of precious moments we've shared together
             </p>
 
-            {/* Photo Grid with Memory Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {memories.map((memory, index) => (
-                <div key={index} className="space-y-4 group">
-                  {/* Photo Placeholder */}
-                  <div 
-                    className="aspect-[4/3] rounded-xl border border-primary/20 bg-card/30 backdrop-blur-sm flex flex-col items-center justify-center hover:border-primary/40 transition-all duration-500 card-glow hover-lift"
-                    style={{ 
-                      borderTopRightRadius: '2rem',
-                      background: 'linear-gradient(145deg, hsl(240 15% 6% / 0.8), hsl(240 15% 4% / 0.9))'
-                    }}
-                  >
-                    <Camera className="w-12 h-12 text-muted-foreground/40 mb-3 group-hover:text-primary/60 transition-colors group-hover:animate-bounce-subtle" strokeWidth={1} />
-                    <p className="text-muted-foreground/60 font-body text-sm group-hover:text-muted-foreground/80 transition-colors">Add your photo here</p>
-                  </div>
-                  
-                  {/* Memory Text */}
-                  <div className="text-left px-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Heart className="w-4 h-4 text-rose/70 group-hover:animate-pulse" fill="currentColor" />
-                      <h4 className="font-elegant text-xl text-foreground">{memory.title}</h4>
+            {/* Photo Carousel */}
+            <div className="relative max-w-4xl mx-auto">
+              <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+                <div className="flex">
+                  {memories.map((memory, index) => (
+                    <div key={index} className="flex-[0_0_100%] min-w-0 px-4">
+                      <div className="space-y-4 group">
+                        {/* Photo Placeholder */}
+                        <div 
+                          className="aspect-[16/9] rounded-xl border border-primary/20 bg-card/30 backdrop-blur-sm flex flex-col items-center justify-center card-glow transition-all duration-500"
+                          style={{ 
+                            borderTopRightRadius: '2rem',
+                            background: 'linear-gradient(145deg, hsl(240 15% 6% / 0.8), hsl(240 15% 4% / 0.9))'
+                          }}
+                        >
+                          <Camera className="w-16 h-16 text-muted-foreground/40 mb-4 group-hover:text-primary/60 transition-colors" strokeWidth={1} />
+                          <p className="text-muted-foreground/60 font-body text-lg">Add your photo here</p>
+                        </div>
+                        
+                        {/* Memory Text */}
+                        <div className="text-center px-4 py-4">
+                          <div className="flex items-center justify-center gap-3 mb-3">
+                            <Heart className="w-5 h-5 text-rose/70 animate-pulse" fill="currentColor" />
+                            <h4 className="font-elegant text-2xl text-foreground">{memory.title}</h4>
+                            <Heart className="w-5 h-5 text-rose/70 animate-pulse" fill="currentColor" />
+                          </div>
+                          <p className="text-muted-foreground/80 font-body text-base leading-relaxed max-w-md mx-auto">
+                            {memory.description}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-muted-foreground/80 font-body text-sm leading-relaxed">
-                      {memory.description}
-                    </p>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+              
+              {/* Navigation Arrows */}
+              <button 
+                onClick={() => emblaApi?.scrollPrev()}
+                className="absolute left-0 top-1/3 -translate-y-1/2 -translate-x-4 w-12 h-12 rounded-full bg-card/60 border border-primary/30 backdrop-blur-sm flex items-center justify-center hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 hover:scale-110"
+              >
+                <ChevronLeft className="w-6 h-6 text-primary" />
+              </button>
+              <button 
+                onClick={() => emblaApi?.scrollNext()}
+                className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-4 w-12 h-12 rounded-full bg-card/60 border border-primary/30 backdrop-blur-sm flex items-center justify-center hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 hover:scale-110"
+              >
+                <ChevronRight className="w-6 h-6 text-primary" />
+              </button>
+              
+              {/* Dots Indicator */}
+              <div className="flex justify-center gap-3 mt-8">
+                {memories.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => emblaApi?.scrollTo(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      currentSlide === index 
+                        ? 'bg-primary w-8 shadow-[0_0_10px_hsl(43_74%_66%/0.6)]' 
+                        : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </section>
