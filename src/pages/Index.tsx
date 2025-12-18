@@ -7,6 +7,8 @@ const Index = () => {
   const [surpriseRevealed, setSurpriseRevealed] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState<{ id: number; x: number; y: number }[]>([]);
   const [sparkles, setSparkles] = useState<{ id: number; x: number; y: number }[]>([]);
+  const [scrollY, setScrollY] = useState(0);
+  const [typingComplete, setTypingComplete] = useState(false);
 
   // Generate confetti particles
   const confettiParticles = useMemo(() => {
@@ -80,8 +82,11 @@ const Index = () => {
     }));
   }, []);
 
+  // Parallax scroll effect
   useEffect(() => {
     const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
       sectionsRef.current.forEach((section) => {
         if (section) {
           const rect = section.getBoundingClientRect();
@@ -97,6 +102,12 @@ const Index = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Typing animation complete
+  useEffect(() => {
+    const timer = setTimeout(() => setTypingComplete(true), 4000);
+    return () => clearTimeout(timer);
   }, []);
 
   // Create floating heart on click
@@ -180,59 +191,106 @@ const Index = () => {
         />
       ))}
 
-      {/* Fixed starfield background */}
+      {/* Fixed starfield background with parallax */}
       <div className="fixed inset-0 overflow-hidden" style={{ background: 'linear-gradient(180deg, hsl(240 15% 3%) 0%, hsl(250 20% 5%) 40%, hsl(260 15% 4%) 100%)' }}>
-        {/* Subtle ambient nebula effect */}
+        {/* Subtle ambient nebula effect - slower parallax */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 transition-transform duration-100"
           style={{
             background: 'radial-gradient(ellipse at 20% 20%, hsl(260 30% 12% / 0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, hsl(340 30% 10% / 0.3) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, hsl(280 20% 8% / 0.2) 0%, transparent 70%)',
+            transform: `translateY(${scrollY * 0.1}px)`,
           }}
         />
         
-        {/* Stars */}
-        {stars.map((star) => (
-          <div
-            key={star.id}
-            className={`absolute rounded-full ${
-              star.type === 'bright' ? 'animate-twinkle-bright' : 
-              star.type === 'small' ? 'animate-twinkle-micro' : 'animate-twinkle-slow'
-            }`}
-            style={{
-              left: star.left,
-              top: star.top,
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              opacity: star.opacity,
-              animationDelay: `${star.delay}s`,
-              background: star.type === 'bright' 
-                ? 'radial-gradient(circle, hsl(45 100% 98%) 0%, hsl(45 80% 90%) 50%, transparent 100%)'
-                : 'hsl(45 100% 95%)',
-              boxShadow: star.type === 'bright' 
-                ? `0 0 ${star.size * 3}px ${star.size}px hsl(45 100% 90% / 0.4)`
-                : star.type === 'small'
-                ? `0 0 ${star.size * 2}px hsl(45 100% 95% / 0.3)`
-                : 'none',
-            }}
-          />
-        ))}
+        {/* Distant stars layer - slowest parallax */}
+        <div 
+          className="absolute inset-0"
+          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+        >
+          {stars.filter(s => s.type === 'tiny').map((star) => (
+            <div
+              key={star.id}
+              className="absolute rounded-full animate-twinkle-slow"
+              style={{
+                left: star.left,
+                top: star.top,
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                opacity: star.opacity,
+                animationDelay: `${star.delay}s`,
+                background: 'hsl(45 100% 95%)',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Mid-distance stars - medium parallax */}
+        <div 
+          className="absolute inset-0"
+          style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+        >
+          {stars.filter(s => s.type === 'small').map((star) => (
+            <div
+              key={star.id}
+              className="absolute rounded-full animate-twinkle-micro"
+              style={{
+                left: star.left,
+                top: star.top,
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                opacity: star.opacity,
+                animationDelay: `${star.delay}s`,
+                background: 'hsl(45 100% 95%)',
+                boxShadow: `0 0 ${star.size * 2}px hsl(45 100% 95% / 0.3)`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Close bright stars - fastest parallax */}
+        <div 
+          className="absolute inset-0"
+          style={{ transform: `translateY(${scrollY * 0.25}px)` }}
+        >
+          {stars.filter(s => s.type === 'bright').map((star) => (
+            <div
+              key={star.id}
+              className="absolute rounded-full animate-twinkle-bright"
+              style={{
+                left: star.left,
+                top: star.top,
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                opacity: star.opacity,
+                animationDelay: `${star.delay}s`,
+                background: 'radial-gradient(circle, hsl(45 100% 98%) 0%, hsl(45 80% 90%) 50%, transparent 100%)',
+                boxShadow: `0 0 ${star.size * 3}px ${star.size}px hsl(45 100% 90% / 0.4)`,
+              }}
+            />
+          ))}
+        </div>
 
         {/* Floating ambient particles */}
-        {ambientParticles.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute rounded-full animate-float-gentle"
-            style={{
-              left: particle.left,
-              top: particle.top,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              background: 'radial-gradient(circle, hsl(43 74% 66% / 0.3) 0%, transparent 70%)',
-              animationDuration: `${particle.duration}s`,
-              animationDelay: `${particle.delay}s`,
-            }}
-          />
-        ))}
+        <div 
+          className="absolute inset-0"
+          style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+        >
+          {ambientParticles.map((particle) => (
+            <div
+              key={particle.id}
+              className="absolute rounded-full animate-float-gentle"
+              style={{
+                left: particle.left,
+                top: particle.top,
+                width: `${particle.size}px`,
+                height: `${particle.size}px`,
+                background: 'radial-gradient(circle, hsl(43 74% 66% / 0.3) 0%, transparent 70%)',
+                animationDuration: `${particle.duration}s`,
+                animationDelay: `${particle.delay}s`,
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Content */}
@@ -288,17 +346,19 @@ const Index = () => {
               <Star className="w-5 h-5 text-gold-light animate-bounce-subtle" strokeWidth={1.5} style={{ animationDelay: '0.6s' }} />
             </div>
 
-            {/* Wish message */}
-            <p 
-              className="max-w-xl mx-auto mt-10 text-muted-foreground font-body text-lg md:text-xl leading-relaxed"
+            {/* Wish message with typing effect */}
+            <div 
+              className="max-w-xl mx-auto mt-10"
               style={{ opacity: 0, animation: 'fadeInUp 1s ease-out 1.8s forwards' }}
             >
-              On this special day, may your heart be filled with joy and your life be blessed with countless beautiful moments.
-            </p>
+              <p className={`text-muted-foreground font-body text-lg md:text-xl leading-relaxed ${typingComplete ? '' : 'typing-text typing-cursor'}`}>
+                On this special day, may your heart be filled with joy and your life be blessed with countless beautiful moments.
+              </p>
+            </div>
 
-            {/* Scroll hint */}
+            {/* Scroll hint - centered */}
             <div 
-              className="mt-16"
+              className="mt-16 flex justify-center"
               style={{ opacity: 0, animation: 'fadeInUp 1s ease-out 2.2s forwards' }}
             >
               <button 

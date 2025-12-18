@@ -176,6 +176,48 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: hsl(var(--gold)); }
+}
+
+@keyframes typing-appear {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Typing animation container - character reveal effect */
+.typing-text {
+  background: linear-gradient(90deg, 
+    hsl(var(--muted-foreground)) 50%, 
+    transparent 50%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-reveal 3s ease-out forwards;
+}
+
+@keyframes text-reveal {
+  to {
+    background-position: 0% 0;
+  }
+}
+
+.typing-cursor::after {
+  content: '|';
+  color: hsl(var(--gold));
+  animation: blink-caret 0.75s step-end infinite;
+  margin-left: 2px;
+}
+
 /* Animation classes */
 .animate-twinkle-micro {
   animation: twinkle-micro 2s ease-in-out infinite;
