@@ -130,6 +130,52 @@
   75% { transform: translateY(5px) rotate(-1deg); }
 }
 
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes confetti-sway {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(30px); }
+}
+
+@keyframes sparkle-burst {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  50% { opacity: 1; }
+  100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
+}
+
+@keyframes heart-float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-200px) scale(0.5); opacity: 0; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Animation classes */
 .animate-twinkle-micro {
   animation: twinkle-micro 2s ease-in-out infinite;
@@ -175,6 +221,141 @@
 
 .animate-float-up {
   animation: float-up 4s ease-in-out infinite;
+}
+
+.animate-wobble {
+  animation: wobble 2s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+/* Confetti styles */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  z-index: 1000;
+  pointer-events: none;
+  animation: confetti-fall 3s linear forwards, confetti-sway 1s ease-in-out infinite;
+}
+
+.confetti-gold { background: hsl(var(--gold)); }
+.confetti-rose { background: hsl(var(--rose)); }
+.confetti-accent { background: hsl(var(--accent)); }
+.confetti-star { background: hsl(var(--star)); border-radius: 0; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+
+/* Sparkle burst */
+.sparkle-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--gold));
+  animation: sparkle-burst 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Floating hearts */
+.floating-heart {
+  position: fixed;
+  font-size: 20px;
+  animation: heart-float 3s ease-out forwards;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Interactive button effects */
+.btn-interactive {
+  @apply relative overflow-hidden;
+}
+
+.btn-interactive::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: hsl(var(--gold) / 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-interactive:hover::after {
+  width: 300%;
+  height: 300%;
+}
+
+/* Shine effect */
+.shine-effect {
+  @apply relative overflow-hidden;
+}
+
+.shine-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--gold) / 0.3),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+/* Pulse ring effect */
+.pulse-ring {
+  @apply relative;
+}
+
+.pulse-ring::before,
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid hsl(var(--gold) / 0.5);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.pulse-ring::after {
+  animation-delay: 1s;
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px hsl(var(--gold) / 0.2);
+}
+
+/* Magnetic hover */
+.magnetic-hover {
+  transition: transform 0.2s ease;
+}
+
+/* Card glow on hover */
+.card-glow {
+  transition: all 0.3s ease;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 40px hsl(var(--gold) / 0.3), 0 0 80px hsl(var(--gold) / 0.1);
+  border-color: hsl(var(--gold) / 0.6);
 }
 
 /* Fonts */
