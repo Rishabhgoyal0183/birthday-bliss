@@ -543,18 +543,18 @@ const Index = () => {
                       <div className="space-y-4 group">
                         {/* Photo */}
                         <div 
-                          className="relative aspect-[16/9] rounded-xl overflow-hidden border border-primary/30 card-glow transition-all duration-500 group-hover:border-primary/50"
+                          className="relative aspect-[16/9] rounded-xl overflow-hidden border border-primary/30 card-glow transition-all duration-500 group-hover:border-primary/50 bg-background/50"
                           style={{ borderTopRightRadius: '2rem' }}
                         >
                           <img 
                             src={memory.image} 
                             alt={memory.title}
-                            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                            className="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
                           />
                           {/* Dark overlay to match space theme */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent pointer-events-none" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
                           {/* Vignette effect */}
-                          <div className="absolute inset-0 shadow-[inset_0_0_60px_20px_rgba(0,0,0,0.5)] pointer-events-none" />
+                          <div className="absolute inset-0 shadow-[inset_0_0_40px_15px_rgba(0,0,0,0.4)] pointer-events-none" />
                         </div>
                         
                         {/* Memory Text */}
