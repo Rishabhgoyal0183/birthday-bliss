@@ -549,7 +549,7 @@ const Index = () => {
                           <img 
                             src={memory.image} 
                             alt={memory.title}
-                            className="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
+                            className={`w-full h-full object-center transition-transform duration-700 group-hover:scale-105 ${index === 0 ? 'object-contain' : 'object-cover'}`}
                           />
                           {/* Dark overlay to match space theme */}
                           <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
