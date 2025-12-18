@@ -2,6 +2,16 @@ import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { Camera, MessageCircle, Gift, Music, Heart, Star, Cake, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 
+// Import memory images
+import memory1 from '@/assets/memory-1.jpeg';
+import memory2 from '@/assets/memory-2.jpeg';
+import memory3 from '@/assets/memory-3.jpeg';
+import memory4 from '@/assets/memory-4.jpeg';
+import memory5 from '@/assets/memory-5.jpeg';
+import memory6 from '@/assets/memory-6.jpeg';
+import memory7 from '@/assets/memory-7.jpeg';
+import memory8 from '@/assets/memory-8.jpeg';
+
 const Index = () => {
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -172,10 +182,14 @@ const Index = () => {
   };
 
   const memories = [
-    { title: "Our First Meeting", description: "The moment that started it all. Add your special memory here..." },
-    { title: "Adventures Together", description: "All the fun times we've shared. Replace with your own text..." },
-    { title: "Special Moments", description: "Those little moments that mean everything. Customize this..." },
-    { title: "Laughs & Smiles", description: "The joy you bring to everyone around you. Add your text..." },
+    { image: memory1, title: "Those Eyes ❤️", description: "The way you look at the world, with such depth and beauty..." },
+    { image: memory2, title: "Together Forever", description: "Every moment with you is a treasure I hold close to my heart..." },
+    { image: memory3, title: "Us Together", description: "Side by side, making memories that will last a lifetime..." },
+    { image: memory4, title: "Pure Joy", description: "Your smile lights up my world like nothing else can..." },
+    { image: memory5, title: "Beautiful You", description: "Grace and elegance in every moment, you're simply stunning..." },
+    { image: memory6, title: "Day at the Station", description: "Even in ordinary places, you make everything extraordinary..." },
+    { image: memory7, title: "Heart Made with Love", description: "A simple gesture that means the world to me..." },
+    { image: memory8, title: "Festive Vibes", description: "Celebrating life and love with beautiful traditions..." },
   ];
 
   return (
@@ -527,16 +541,20 @@ const Index = () => {
                   {memories.map((memory, index) => (
                     <div key={index} className="flex-[0_0_100%] min-w-0 px-4">
                       <div className="space-y-4 group">
-                        {/* Photo Placeholder */}
+                        {/* Photo */}
                         <div 
-                          className="aspect-[16/9] rounded-xl border border-primary/20 bg-card/30 backdrop-blur-sm flex flex-col items-center justify-center card-glow transition-all duration-500"
-                          style={{ 
-                            borderTopRightRadius: '2rem',
-                            background: 'linear-gradient(145deg, hsl(240 15% 6% / 0.8), hsl(240 15% 4% / 0.9))'
-                          }}
+                          className="relative aspect-[16/9] rounded-xl overflow-hidden border border-primary/30 card-glow transition-all duration-500 group-hover:border-primary/50"
+                          style={{ borderTopRightRadius: '2rem' }}
                         >
-                          <Camera className="w-16 h-16 text-muted-foreground/40 mb-4 group-hover:text-primary/60 transition-colors" strokeWidth={1} />
-                          <p className="text-muted-foreground/60 font-body text-lg">Add your photo here</p>
+                          <img 
+                            src={memory.image} 
+                            alt={memory.title}
+                            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                          />
+                          {/* Dark overlay to match space theme */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent pointer-events-none" />
+                          {/* Vignette effect */}
+                          <div className="absolute inset-0 shadow-[inset_0_0_60px_20px_rgba(0,0,0,0.5)] pointer-events-none" />
                         </div>
                         
                         {/* Memory Text */}
