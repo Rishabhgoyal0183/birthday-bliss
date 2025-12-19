@@ -422,7 +422,7 @@ const Index = () => {
         >
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-lg md:text-xl text-muted-foreground font-body leading-relaxed mb-6">
-              On this special day, may your heart be filled with joy and your life be blessed with countless beautiful moments.
+              You deserve all the happiness in the universe, my love. Thank you for making every moment magical and every memory unforgettable.
             </p>
             
             <p className="text-lg md:text-xl text-muted-foreground font-body leading-relaxed">
