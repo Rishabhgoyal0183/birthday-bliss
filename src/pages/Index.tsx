@@ -648,9 +648,21 @@ const Index = () => {
               Our Song
             </h3>
 
-            <div className="p-8 rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm card-glow hover-lift">
-              <p className="text-muted-foreground font-body mb-6">
-                [Add a music player embed or link to your special song here]
+            <div className="p-6 rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm card-glow hover-lift">
+              <p className="text-muted-foreground font-body mb-6 text-lg">
+                A special song for your special day 🎵
+              </p>
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-primary/10">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/RbtPXFlZlHg?rel=0"
+                  title="Birthday Song"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <p className="text-muted-foreground/60 font-body text-sm mt-4 italic">
+                "Happy Birthday My Love" ❤️
               </p>
             </div>
           </div>
