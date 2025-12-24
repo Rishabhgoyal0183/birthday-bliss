@@ -674,9 +674,9 @@ const Index = () => {
             <div className={`p-12 rounded-2xl border border-accent/20 bg-card/30 backdrop-blur-sm transition-all duration-700 ${surpriseRevealed ? 'card-glow' : 'animate-float-gentle'}`}>
               {!surpriseRevealed ? (
                 <>
-                  <span className="text-6xl mb-6 block animate-wobble">🎉</span>
+                  <span className="text-6xl mb-6 block animate-wobble">🎂</span>
                   <p className="text-lg text-muted-foreground font-body mb-6">
-                    Something special awaits you...
+                    A sweet surprise is waiting for you...
                   </p>
                   <button 
                     onClick={handleSurpriseReveal}
@@ -686,16 +686,43 @@ const Index = () => {
                   </button>
                 </>
               ) : (
-                <div className="animate-fade-in-scale">
-                  <span className="text-6xl mb-6 block">🎊</span>
-                  <h4 className="font-display text-3xl text-primary mb-4">Surprise!</h4>
-                  <p className="text-lg text-muted-foreground font-body mb-6">
-                    [Add your surprise content here - maybe a gift reveal, a video link, 
-                    or something special you've planned for Chelsi]
-                  </p>
-                  <div className="flex items-center justify-center gap-2 text-rose">
+                <div className="animate-fade-in-scale space-y-6">
+                  {/* Cake Image Placeholder */}
+                  <div className="relative mx-auto w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-2 border-accent/30 bg-gradient-to-br from-primary/10 via-rose/10 to-accent/10 flex items-center justify-center group">
+                    {/* Replace this div with your cake image: <img src="/your-cake.jpg" alt="Birthday Cake" className="w-full h-full object-cover" /> */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                    <div className="text-center p-4 relative z-10">
+                      <span className="text-6xl block mb-2 animate-bounce-subtle">🎂</span>
+                      <p className="text-sm text-muted-foreground font-body">Your cake image here</p>
+                    </div>
+                    {/* Decorative sparkles */}
+                    <div className="absolute top-2 left-2 w-2 h-2 bg-primary rounded-full animate-twinkle-bright" />
+                    <div className="absolute top-4 right-4 w-1.5 h-1.5 bg-accent rounded-full animate-twinkle-bright" style={{ animationDelay: '0.3s' }} />
+                    <div className="absolute bottom-6 left-6 w-1 h-1 bg-rose rounded-full animate-twinkle-bright" style={{ animationDelay: '0.6s' }} />
+                    <div className="absolute bottom-4 right-8 w-2 h-2 bg-primary rounded-full animate-twinkle-bright" style={{ animationDelay: '0.9s' }} />
+                  </div>
+
+                  {/* Cake Message */}
+                  <div className="max-w-md mx-auto">
+                    <h4 className="font-display text-2xl md:text-3xl text-primary mb-4 flex items-center justify-center gap-2">
+                      <Sparkles className="w-5 h-5 text-accent animate-pulse" />
+                      A Little Something Sweet
+                      <Sparkles className="w-5 h-5 text-accent animate-pulse" />
+                    </h4>
+                    <p className="text-lg text-foreground/80 font-body leading-relaxed mb-4">
+                      This bento cake was made just for you, my love.
+                    </p>
+                    <p className="text-base text-muted-foreground font-elegant italic leading-relaxed">
+                      I know you always dreamed of cutting this exact cake — and while this one lives here in pixels and love, 
+                      know that it carries all my warmth and wishes for you. This will always be your special cake, 
+                      baked with memories and sweetened with all my heart.
+                    </p>
+                  </div>
+
+                  {/* Footer hearts */}
+                  <div className="flex items-center justify-center gap-2 text-rose pt-4">
                     <Heart className="w-5 h-5 animate-pulse" fill="currentColor" />
-                    <span className="font-elegant text-xl">Made with love for you</span>
+                    <span className="font-elegant text-xl">Forever yours</span>
                     <Heart className="w-5 h-5 animate-pulse" fill="currentColor" />
                   </div>
                 </div>
