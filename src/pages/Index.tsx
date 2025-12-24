@@ -1,6 +1,7 @@
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { Camera, MessageCircle, Gift, Music, Heart, Star, Cake, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
+import AudioPlayer from '@/components/AudioPlayer';
 
 // Import memory images
 import memory1 from '@/assets/memory-1.jpeg';
@@ -642,29 +643,20 @@ const Index = () => {
           ref={(el) => { sectionsRef.current[4] = el; }}
           className="section-hidden min-h-[50vh] flex flex-col items-center justify-center px-4 py-20"
         >
-          <div className="text-center max-w-2xl mx-auto">
-            <Music className="w-12 h-12 text-primary mx-auto mb-4 animate-bounce-subtle" strokeWidth={1.5} />
+          <div className="text-center max-w-2xl mx-auto w-full">
             <h3 className="font-display text-3xl md:text-4xl text-primary mb-8">
               Our Song
             </h3>
 
-            <div className="p-6 rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm card-glow hover-lift">
-              <p className="text-muted-foreground font-body mb-6 text-lg">
-                A special song for your special day 🎵
-              </p>
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-primary/10">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/RbtPXFlZlHg?rel=0"
-                  title="Birthday Song"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <p className="text-muted-foreground/60 font-body text-sm mt-4 italic">
-                "Happy Birthday My Love" ❤️
-              </p>
-            </div>
+            {/* Replace the src with your own MP3 file path */}
+            <AudioPlayer 
+              audioSrc="/birthday-song.mp3" 
+              title="Happy Birthday My Love"
+            />
+            
+            <p className="text-muted-foreground/60 font-body text-sm mt-6 italic">
+              Upload your MP3 to the public folder as "birthday-song.mp3"
+            </p>
           </div>
         </section>
 
