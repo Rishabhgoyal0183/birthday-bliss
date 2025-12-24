@@ -693,7 +693,8 @@ const Index = () => {
                     <img 
                       src={birthdayCake} 
                       alt="Your Special Birthday Cake" 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      style={{ objectPosition: '50% 40%' }}
                     />
                     {/* Glowing overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-primary/10 pointer-events-none" />
