@@ -12,6 +12,7 @@ import memory5 from '@/assets/memory-5.jpeg';
 import memory6 from '@/assets/memory-6.jpeg';
 import memory7 from '@/assets/memory-7.jpeg';
 import memory8 from '@/assets/memory-8.jpeg';
+import birthdayCake from '@/assets/birthday-cake.png';
 
 const Index = () => {
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
@@ -686,33 +687,36 @@ const Index = () => {
                   </button>
                 </>
               ) : (
-                <div className="animate-fade-in-scale space-y-6">
-                  {/* Cake Image Placeholder */}
-                  <div className="relative mx-auto w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-2 border-accent/30 bg-gradient-to-br from-primary/10 via-rose/10 to-accent/10 flex items-center justify-center group">
-                    {/* Replace this div with your cake image: <img src="/your-cake.jpg" alt="Birthday Cake" className="w-full h-full object-cover" /> */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                    <div className="text-center p-4 relative z-10">
-                      <span className="text-6xl block mb-2 animate-bounce-subtle">🎂</span>
-                      <p className="text-sm text-muted-foreground font-body">Your cake image here</p>
-                    </div>
-                    {/* Decorative sparkles */}
-                    <div className="absolute top-2 left-2 w-2 h-2 bg-primary rounded-full animate-twinkle-bright" />
-                    <div className="absolute top-4 right-4 w-1.5 h-1.5 bg-accent rounded-full animate-twinkle-bright" style={{ animationDelay: '0.3s' }} />
-                    <div className="absolute bottom-6 left-6 w-1 h-1 bg-rose rounded-full animate-twinkle-bright" style={{ animationDelay: '0.6s' }} />
-                    <div className="absolute bottom-4 right-8 w-2 h-2 bg-primary rounded-full animate-twinkle-bright" style={{ animationDelay: '0.9s' }} />
+                <div className="animate-fade-in-scale space-y-8">
+                  {/* Cake Image */}
+                  <div className="relative mx-auto w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden border-4 border-accent/40 shadow-2xl group">
+                    <img 
+                      src={birthdayCake} 
+                      alt="Your Special Birthday Cake" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    {/* Glowing overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-primary/10 pointer-events-none" />
+                    {/* Decorative sparkles around the cake */}
+                    <div className="absolute top-3 left-3 w-3 h-3 bg-primary rounded-full animate-twinkle-bright shadow-lg shadow-primary/50" />
+                    <div className="absolute top-6 right-6 w-2 h-2 bg-accent rounded-full animate-twinkle-bright shadow-lg shadow-accent/50" style={{ animationDelay: '0.3s' }} />
+                    <div className="absolute bottom-8 left-8 w-2 h-2 bg-rose rounded-full animate-twinkle-bright shadow-lg shadow-rose/50" style={{ animationDelay: '0.6s' }} />
+                    <div className="absolute bottom-6 right-10 w-3 h-3 bg-primary rounded-full animate-twinkle-bright shadow-lg shadow-primary/50" style={{ animationDelay: '0.9s' }} />
+                    <div className="absolute top-1/2 left-2 w-1.5 h-1.5 bg-accent rounded-full animate-twinkle-bright" style={{ animationDelay: '1.2s' }} />
+                    <div className="absolute top-1/2 right-2 w-1.5 h-1.5 bg-rose rounded-full animate-twinkle-bright" style={{ animationDelay: '1.5s' }} />
                   </div>
 
                   {/* Cake Message */}
-                  <div className="max-w-md mx-auto">
-                    <h4 className="font-display text-2xl md:text-3xl text-primary mb-4 flex items-center justify-center gap-2">
-                      <Sparkles className="w-5 h-5 text-accent animate-pulse" />
+                  <div className="max-w-lg mx-auto text-center">
+                    <h4 className="font-display text-2xl md:text-3xl text-primary mb-6 flex items-center justify-center gap-3">
+                      <Sparkles className="w-6 h-6 text-accent animate-pulse" />
                       A Little Something Sweet
-                      <Sparkles className="w-5 h-5 text-accent animate-pulse" />
+                      <Sparkles className="w-6 h-6 text-accent animate-pulse" />
                     </h4>
-                    <p className="text-lg text-foreground/80 font-body leading-relaxed mb-4">
+                    <p className="text-xl text-foreground/90 font-body leading-relaxed mb-6">
                       This bento cake was made just for you, my love.
                     </p>
-                    <p className="text-base text-muted-foreground font-elegant italic leading-relaxed">
+                    <p className="text-lg text-muted-foreground font-elegant italic leading-relaxed px-4">
                       I know you always dreamed of cutting this exact cake — and while this one lives here in pixels and love, 
                       know that it carries all my warmth and wishes for you. This will always be your special cake, 
                       baked with memories and sweetened with all my heart.
@@ -720,10 +724,10 @@ const Index = () => {
                   </div>
 
                   {/* Footer hearts */}
-                  <div className="flex items-center justify-center gap-2 text-rose pt-4">
-                    <Heart className="w-5 h-5 animate-pulse" fill="currentColor" />
-                    <span className="font-elegant text-xl">Forever yours</span>
-                    <Heart className="w-5 h-5 animate-pulse" fill="currentColor" />
+                  <div className="flex items-center justify-center gap-3 text-rose pt-6">
+                    <Heart className="w-6 h-6 animate-pulse" fill="currentColor" />
+                    <span className="font-elegant text-2xl">Forever yours</span>
+                    <Heart className="w-6 h-6 animate-pulse" fill="currentColor" />
                   </div>
                 </div>
               )}
