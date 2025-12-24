@@ -156,9 +156,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-center gap-6">
-          {/* Volume control */}
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center gap-4 sm:gap-6">
+          {/* Volume control - hidden on mobile, visible on larger screens */}
+          <div className="hidden sm:flex items-center gap-2">
             <button 
               onClick={toggleMute}
               className="p-2 rounded-full hover:bg-primary/10 transition-colors text-muted-foreground hover:text-primary"
@@ -175,6 +175,14 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
               className="w-16 h-1 bg-muted/30 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-[0_0_8px_rgba(255,105,180,0.6)]"
             />
           </div>
+
+          {/* Mobile mute button - visible only on mobile */}
+          <button 
+            onClick={toggleMute}
+            className="sm:hidden p-2 rounded-full hover:bg-primary/10 transition-colors text-muted-foreground hover:text-primary"
+          >
+            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+          </button>
 
           {/* Play/Pause button */}
           <button
